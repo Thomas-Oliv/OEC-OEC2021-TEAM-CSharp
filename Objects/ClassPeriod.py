@@ -35,6 +35,7 @@ class ClassPeriod:
         teacherExpectedToInfect = 0
         teacherAssistantExpectedToInfect = 0
 
+        # Calculate the number of people expected to be infected by each type of person (student, teacher, ta)
         for student in self.students:
             # 3 is the r0 value
             studentsExpectedToInfect += student.chanceOfDisease * 3
@@ -44,10 +45,15 @@ class ClassPeriod:
 
         classSize = len(self.students) + 2
 
+
         studentInfectionProbability = studentsExpectedToInfect / classSize
         teacherInfectionProbability = teacherExpectedToInfect / classSize
         teachersAssistantInfectionProbability = teacherAssistantExpectedToInfect / classSize
         contaminationInfectionProbability = self.expectedInfectionsFromContamination / classSize
+
+        # Recalculate chanceInfected for each person
+        # Based on the percent chance that each group with infect anyone (regardless of group)
+        # Add infectionProbability for each group and multiply
         for student in self.students:
             chanceInfected = (studentInfectionProbability
                                 + (teacherInfectionProbability * constants.TEACHER_STUDENT_MULTIPLIER)
@@ -56,17 +62,14 @@ class ClassPeriod:
                              * student.infectivity
             student.chanceOfDisease = computeNewChance(chanceInfected, student.chanceOfDisease)
 
-        teacherChanceInfected = (studentInfectionProbability
-                                 + (teacherInfectionProbability * constants.TEACHER_STUDENT_MULTIPLIER)
+        teacherChanceInfected = (studentInfectionProbability * constants.TEACHER_STUDENT_MULTIPLIER
                                  + (teachersAssistantInfectionProbability * constants.TEACHER_TA_MULTIPLIER)
                                  + contaminationInfectionProbability)
         self.teacher.chanceInfected = computeNewChance(teacherChanceInfected, self.teacher.chanceInfected)
 
-        taChanceInfected = (studentInfectionProbability
+        taChanceInfected = (studentInfectionProbability * constants.TA_STUDENT_MULTIPLIER
                             + (teacherInfectionProbability * constants.TEACHER_STUDENT_MULTIPLIER)
-                            + (teachersAssistantInfectionProbability * constants.TEACHER_TA_MULTIPLIER)
                             + contaminationInfectionProbability)
-
         self.ta.chanceInfected = computeNewChance(taChanceInfected, self.ta.chanceInfected)
 
         # cleaning removes contamination

@@ -8,8 +8,9 @@ def computeNewChance(originalChance, newChance) -> float:
 def extra_calc(students):
     extracurriculars = constants.EXTRACURRICULARS
     for student in students:
-        for extra in student.extracurriculars:
-            extracurriculars[extra].append(student)
+        print(student.first)
+        if student.extracurriculars is not None:
+            extracurriculars[student.extracurriculars].append(student)
     for key in extracurriculars:
         studentsExpectedToInfect = 0
         curricularSize = len(extracurriculars[key])
