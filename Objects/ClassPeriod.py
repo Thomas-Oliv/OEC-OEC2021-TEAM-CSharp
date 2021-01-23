@@ -11,6 +11,7 @@ class ClassPeriod:
     students: List[Student]
     ta: TeachingAssistant
     teacher: Teacher
+    infectedMultiplier: float
 
     def __init__(self, name, period, students, ta, teacher):
         self.name = name
@@ -18,3 +19,4 @@ class ClassPeriod:
         self.students = students
         self.ta = ta
         self.teacher = teacher
+        self.infectedMultiplier = 0
