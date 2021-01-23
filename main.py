@@ -6,11 +6,11 @@ from Objects.Teacher import Teacher
 from Objects.TeachingAssistant import TeachingAssistant
 
 def main():
+    PROJECT_ROOT = os.path.abspath(os.path.dirname(__file__))
+    directory = os.path.join(PROJECT_ROOT, 'OEC2021_-_School_Record_Book_.xlsx')
     students = list()
     teachers = list()
     tas = list()
-    PROJECT_ROOT = os.path.abspath(os.path.dirname(__file__))
-    directory = os.path.join(PROJECT_ROOT, 'OEC2021_-_School_Record_Book_.xlsx')
     wb = load_workbook(read_only=True, filename=directory)
     student_info = wb[wb.sheetnames[0]]
     for student in student_info.iter_rows():
@@ -35,12 +35,26 @@ def main():
 
     ta_info = wb[wb.sheetnames[2]]
     for ta in ta_info.iter_rows():
-        print(ta)
         if not any(ta):
             break
-        if isinstance(ta[0].value, float) and ta[0].value > 0:
-            classes = [ta[2].value, ta[3].value, ta[4].value, ta[5].value]
-            tas.append(TeachingAssistant(ta[1].value,ta[0].value, classes))
+        classes = [ta[2].value, ta[3].value, ta[4].value, ta[5].value]
+        tas.append(TeachingAssistant(ta[1].value,ta[0].value, classes))
+
+    infected_info = wb[wb.sheetnames[3]]
+    for infected in infected_info.iter_rows():
+        if not any(infected):
+            break
+        if isinstance(infected[0].value, float) and infected[0].value > 0:
+            student = students[int(infected[0].value)-1]
+            if student.first == infected[2].value and student.last == infected[1].value:
+                student.chanceOfDisease = 1
+            else:
+                raise Exception('Name does not match existing student with specified ID')
+        elif infected[0].value == 'N/A':
+            for ta in tas:
+                if ta.first == infected[2].value and ta.last == infected[1].value:
+                    ta.chanceInfected = 1
+
 
 
 
