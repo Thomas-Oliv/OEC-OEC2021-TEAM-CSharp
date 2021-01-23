@@ -6,4 +6,3 @@ class Teacher:
     def __init__(self, id, classTeaching):
         self.id = id
         self.classTeaching = classTeaching
-        self.chanceInfected = 0
