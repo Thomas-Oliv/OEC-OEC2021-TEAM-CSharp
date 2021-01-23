@@ -1,5 +1,5 @@
 
-import sys,os
+import os
 from statistics import mean
 
 from openpyxl import Workbook, load_workbook
@@ -59,10 +59,12 @@ def main():
     # Get the teacher assistant sheet
     ta_info = wb[wb.sheetnames[2]]
     # Iterate through the rows in the TA sheet
-    for ta in ta_info.iter_rows():
+    for index, ta in enumerate(ta_info.iter_rows()):
         # If the row is empty (aka eof reached) then break
         if not any(ta):
             break
+        if index == 0:
+            continue
         # Get classes for the TA ordered by period 1-4
         classes = [ta[2].value, ta[3].value, ta[4].value, ta[5].value]
         # Append new TA to the TA list
@@ -102,16 +104,20 @@ def main():
     directory.reducePeriod(4)
 
     rangeOfResults = [student.chanceOfDisease for student in students]
-    print(min(rangeOfResults))
-    print(max(rangeOfResults))
-    print([f'{student.first} {student.last}' for student in students if student.chanceOfDisease == 1])
-    print(mean([student.chanceOfDisease for student in students]))
 
     directory.reducePeriod('Extra')
     print(min(rangeOfResults))
     print(max(rangeOfResults))
-    print(len([f'{student.first} {student.last}' for student in students if student.chanceOfDisease == 1]))
     print(mean([student.chanceOfDisease for student in students]))
+
+    print('TEACHERS')
+    print(min([teacher.chanceInfected for teacher in teachers]))
+    print(max([teacher.chanceInfected for teacher in teachers]))
+    print(mean([teacher.chanceInfected for teacher in teachers]))
+    print('TAS')
+    print(min([ta.chanceInfected for ta in tas]))
+    print(max([ta.chanceInfected for ta in tas]))
+    print(mean([ta.chanceInfected for ta in tas]))
 
 if __name__ == "__main__":
     main()

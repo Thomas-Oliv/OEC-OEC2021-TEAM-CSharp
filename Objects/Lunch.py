@@ -1,5 +1,6 @@
 from typing import List
 
+from constants import R_NAUGHT
 from Objects.Student import Student
 from Functions import computeNewChance
 
@@ -16,7 +17,7 @@ class Lunch:
         lunchSize = len(self.students)
         for student in self.students:
             # 3 is the r0 value
-            studentsExpectedToInfect += student.chanceOfDisease * 3
+            studentsExpectedToInfect += student.chanceOfDisease * R_NAUGHT
 
         studentInfectionProbability = studentsExpectedToInfect / lunchSize
         for student in self.students:
