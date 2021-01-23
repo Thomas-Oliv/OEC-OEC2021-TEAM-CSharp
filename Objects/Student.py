@@ -10,15 +10,10 @@ class Student:
     extracurriculars: List[str]
     chanceOfDisease: float  # from 0 to 1
 
-    def __init__(self, id, grade, infectivity, classes, extracurriculars):
+    def __init__(self, id, grade, healthProblems, classes, extracurriculars):
         self.id = id
         self.grade = grade
-        self.infectivity = infectivity
+        self.infectivity = (healthProblems * constants.HEALTH_CONDITION_MULTIPLIER * 1.5**(grade + 5 - 14))
         self.classes = classes
         self.extracurriculars = extracurriculars
         self.chanceOfDisease = 0
-
-    def calcInfectivity(healthProblems): 
-        # healthProblems is a boolean (0 or 1) -> Apply factor if healthProblems == true
-        # Multiply by age factor which is grade + 5 (grade 9 = 14 years old) - 14 (to normalize value)
-        return (healthProblems * constants.HEALTH_CONDITION_MULTIPLIER * 1.5^(self.grade + 5 - 14))
