@@ -1,4 +1,3 @@
-from Objects.Extracurricular import Extracurricular
 
 # students not expected to interact with teachers much closely
 TEACHER_STUDENT_MULTIPLIER = 0.8
