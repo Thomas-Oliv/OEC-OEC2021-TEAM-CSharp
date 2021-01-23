@@ -1,10 +1,9 @@
 class Teacher:
     id: int
     classTeaching: str
-    infectivity: float
     chanceInfected: float
 
-    def __init__(self, id, classTeaching, infectivity):
+    def __init__(self, id, classTeaching):
         self.id = id
         self.classTeaching = classTeaching
-        self.infectivity = infectivity
+        self.chanceInfected = 0

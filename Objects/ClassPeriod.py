@@ -50,14 +50,12 @@ class ClassPeriod:
 
         teacherChanceInfected = ((studentsExpectedToInfect / classSize)
                                  + (teacherExpectedToInfect / classSize * constants.TEACHER_STUDENT_MULTIPLIER)
-                                 + (teacherAssistantExpectedToInfect / classSize * constants.TEACHER_TA_MULTIPLIER)) \
-                                    * self.teacher.infectivity
+                                 + (teacherAssistantExpectedToInfect / classSize * constants.TEACHER_TA_MULTIPLIER))
         self.teacher.chanceInfected = ClassPeriod.computeNewChance(teacherChanceInfected, self.teacher.chanceInfected)
 
         taChanceInfected = ((studentsExpectedToInfect / classSize)
                                  + (teacherExpectedToInfect / classSize * constants.TEACHER_STUDENT_MULTIPLIER)
-                                 + (teacherAssistantExpectedToInfect / classSize * constants.TEACHER_TA_MULTIPLIER)) \
-                                * self.teacher.infectivity
+                                 + (teacherAssistantExpectedToInfect / classSize * constants.TEACHER_TA_MULTIPLIER))
         self.ta.chanceInfected = ClassPeriod.computeNewChance(taChanceInfected, self.ta.chanceInfected)
 
         # TODO figure out how to compute new contamination
