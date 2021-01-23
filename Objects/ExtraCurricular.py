@@ -14,7 +14,6 @@ class ExtraCurricular:
         # dictionary containing all extracurriculars
         # add all students in extracurriculars to extracurricular dictionary
         for student in self.students:
-            print(student.first)
             if student.extracurriculars is not None:
                 constants.EXTRACURRICULARS[student.extracurriculars].append(student)
         # calculate increase in chance of disease for each extracurricular
