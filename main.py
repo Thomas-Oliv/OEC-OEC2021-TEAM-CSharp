@@ -8,8 +8,6 @@ from Objects.Teacher import Teacher
 from Objects.TeachingAssistant import TeachingAssistant
 from Objects.Directory import Directory
 
-from extracurricular_algo import extra_calc
-
 
 def main():
     # Get project directly
