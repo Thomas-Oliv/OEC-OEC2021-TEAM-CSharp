@@ -64,12 +64,14 @@ class ClassPeriod:
 
         teacherChanceInfected = (studentInfectionProbability * constants.TEACHER_STUDENT_MULTIPLIER
                                  + (teachersAssistantInfectionProbability * constants.TEACHER_TA_MULTIPLIER)
-                                 + contaminationInfectionProbability)
+                                 + contaminationInfectionProbability
+                                 - self.teacher.chanceInfected / classSize)
         self.teacher.chanceInfected = computeNewChance(teacherChanceInfected, self.teacher.chanceInfected)
 
         taChanceInfected = (studentInfectionProbability * constants.TA_STUDENT_MULTIPLIER
                             + (teacherInfectionProbability * constants.TEACHER_STUDENT_MULTIPLIER)
-                            + contaminationInfectionProbability)
+                            + contaminationInfectionProbability
+                            - self.ta.chanceInfected / classSize)
         if self.ta is not None:
             self.ta.chanceInfected = computeNewChance(taChanceInfected, self.ta.chanceInfected)
 
