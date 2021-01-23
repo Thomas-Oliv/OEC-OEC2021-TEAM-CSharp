@@ -1,15 +1,70 @@
-from typing import List
+from typing import List, Dict
 from Objects.Student import Student
 from Objects.Teacher import Teacher
 from Objects.TeachingAssistant import TeachingAssistant
 
+from Objects.ClassPeriod import ClassPeriod
+from Objects.Lunch import Lunch
+
 
 class Directory:
-    Teachers: List[Teacher]
-    Students: List[Student]
-    TeachingAssistants: List[TeachingAssistant]
+    teachers: List[Teacher]
+    students: List[Student]
+    teachingAssistants: List[TeachingAssistant]
+    """
+    {
+        [period number/lunch]: {
+            [className/grade]: ClassPeriod/Lunch
+        }
+    }
+    """
+    periodDict: Dict
 
-    def __init__(self, teachers, students, ta):
-        self.Teachers = teachers
-        self.TeachingAssistants = ta
-        self.Students = students
+    def __init__(self, teachers, students, tas):
+        self.teachers = teachers
+        self.teachingAssistants = tas
+        self.students = students
+        periodDict = {
+            1: {},
+            2: {},
+            'Lunch': {},
+            3: {},
+            4: {},
+        }
+        classToTeacherMap = {
+            teacher.classTeaching: teacher for teacher in teachers
+        }
+        for student in students:
+            for period in periodDict.keys():
+                if period == 'Lunch':
+                    if periodDict[period][student.grade] is None:
+                        periodDict[period][student.grade] = Lunch([student])
+                    else:
+                        periodDict[period][student.grade].students.append(student)
+                else:
+                    currentClass = student.classes[period - 1]
+                    taForClass = None
+                    for ta in self.teachingAssistants:
+                        if ta.classes[period - 1] == currentClass:
+                            taForClass = ta
+                    teacherOfClass = classToTeacherMap[currentClass]
+
+                    if currentClass not in periodDict[period]:
+                        periodDict[period][currentClass] = ClassPeriod(currentClass, 1, [student], taForClass,
+                                                                       teacherOfClass)
+                    else:
+                        periodDict[period][currentClass].students.append(student)
+
+        self.periodDict = periodDict
+
+    def reducePeriod(self, periodNumber):
+        currentPeriod = self.periodDict[periodNumber]
+        if currentPeriod == 'Lunch':
+            for grade in currentPeriod.values():
+                currentPeriod[grade].reduce()
+        else:
+            for className in currentPeriod.values():
+                infectionNumber = currentPeriod[className].reducePeriod()
+                if currentPeriod == 1 or currentPeriod == 3:
+                    nextPeriodClass = self.periodDict[currentPeriod + 1][className]
+                    nextPeriodClass.expectedInfectionsFromContamination = infectionNumber

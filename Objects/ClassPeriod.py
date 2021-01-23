@@ -22,7 +22,7 @@ class ClassPeriod:
         self.students = students
         self.ta = ta
         self.teacher = teacher
-        self.infectedMultiplier = 0
+        self.expectedInfectionsFromContamination = 0
 
     def reducePeriod(self) -> float:
         """
