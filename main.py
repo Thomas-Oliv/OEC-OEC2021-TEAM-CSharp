@@ -101,6 +101,7 @@ def main():
     directory.reducePeriod(3)
     directory.reducePeriod(4)
     directory.reducePeriod('Extra')
+    pass
 
 if __name__ == "__main__":
     main()
