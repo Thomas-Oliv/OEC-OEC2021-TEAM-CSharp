@@ -1,10 +1,14 @@
 
 import sys,os
+from statistics import mean
+
 from openpyxl import Workbook, load_workbook
 from Objects.Student import Student
 from Objects.Teacher import Teacher
 from Objects.TeachingAssistant import TeachingAssistant
 from Objects.Directory import Directory
+
+from extracurricular_algo import extra_calc
 
 
 def main():
@@ -100,6 +104,14 @@ def main():
     rangeOfResults = [student.chanceOfDisease for student in students]
     print(min(rangeOfResults))
     print(max(rangeOfResults))
+    print([f'{student.first} {student.last}' for student in students if student.chanceOfDisease == 1])
+    print(mean([student.chanceOfDisease for student in students]))
+
+    extra_calc(students)
+    print(min(rangeOfResults))
+    print(max(rangeOfResults))
+    print(len([f'{student.first} {student.last}' for student in students if student.chanceOfDisease == 1]))
+    print(mean([student.chanceOfDisease for student in students]))
 
 if __name__ == "__main__":
     main()

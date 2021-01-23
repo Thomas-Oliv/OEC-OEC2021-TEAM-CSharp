@@ -10,7 +10,7 @@ TEACHER_TA_MULTIPLIER = 1.5
 
 # Dictionary to store extracuriculars
 EXTRACURRICULARS = {
-    'Board game club': [],
+    'Board Game Club': [],
     'Football': [],
     'Soccer': [],
     'Video Game Club': [],
@@ -19,10 +19,15 @@ EXTRACURRICULARS = {
     'Choir': [],
     'Basketball': [],
     'Badminton': [],
-    'Baseball': []
+    'Baseball': [],
+    'Drama Club': [],
 }
 
 # given pre-existing health condition multiplier
 HEALTH_CONDITION_MULTIPLIER = 1.7
 
 CONTAMINATION_FACTOR = 0.1
+
+R_NAUGHT = 3.0
+
+EXTRACURRICULAR_SPACING_FACTOR = 2.0

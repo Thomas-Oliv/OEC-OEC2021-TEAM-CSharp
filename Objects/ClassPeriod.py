@@ -38,10 +38,10 @@ class ClassPeriod:
         # Calculate the number of people expected to be infected by each type of person (student, teacher, ta)
         for student in self.students:
             # 3 is the r0 value
-            studentsExpectedToInfect += student.chanceOfDisease * 3
+            studentsExpectedToInfect += student.chanceOfDisease * constants.R_NAUGHT
 
-        teacherExpectedToInfect += self.teacher.chanceInfected * 3
-        teacherAssistantExpectedToInfect += self.ta.chanceInfected * 3 if self.ta is not None else 0
+        teacherExpectedToInfect += self.teacher.chanceInfected * constants.R_NAUGHT
+        teacherAssistantExpectedToInfect += self.ta.chanceInfected * constants.R_NAUGHT if self.ta is not None else 0
 
         classSize = len(self.students) + 2
 
