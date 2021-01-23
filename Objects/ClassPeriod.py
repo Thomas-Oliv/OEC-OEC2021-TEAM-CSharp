@@ -23,6 +23,7 @@ class ClassPeriod:
         self.teacher = teacher
         self.infectedMultiplier = 0
 
+    # Normalize chance (50% chance + 50% chance != 100% -> Not guaranteed)
     @staticmethod
     def computeNewChance(originalChance, newChance) -> float:
         return min(1 - ((1 - originalChance) * (1 - newChance)), 1)
@@ -69,6 +70,7 @@ class ClassPeriod:
 
 
         # cleaning removes contamination
+        # Return totalExpectedInfections for the next period to use
         if self.period == 2:
             return 0
         else:
