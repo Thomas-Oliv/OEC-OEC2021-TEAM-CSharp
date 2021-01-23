@@ -5,6 +5,7 @@ import constants
 from Objects.TeachingAssistant import TeachingAssistant
 from Objects.Student import Student
 from Objects.Teacher import Teacher
+from Functions import computeNewChance
 
 
 class ClassPeriod:
@@ -22,11 +23,6 @@ class ClassPeriod:
         self.ta = ta
         self.teacher = teacher
         self.infectedMultiplier = 0
-
-    # Normalize chance (50% chance + 50% chance != 100% -> Not guaranteed)
-    @staticmethod
-    def computeNewChance(originalChance, newChance) -> float:
-        return min(1 - ((1 - originalChance) * (1 - newChance)), 1)
 
     def reducePeriod(self) -> float:
         """
@@ -58,20 +54,20 @@ class ClassPeriod:
                                 + (teachersAssistantInfectionProbability * constants.TA_STUDENT_MULTIPLIER)
                                 + contaminationInfectionProbability) \
                              * student.infectivity
-            student.chanceOfDisease = ClassPeriod.computeNewChance(chanceInfected, student.chanceOfDisease)
+            student.chanceOfDisease = computeNewChance(chanceInfected, student.chanceOfDisease)
 
         teacherChanceInfected = (studentInfectionProbability
                                  + (teacherInfectionProbability * constants.TEACHER_STUDENT_MULTIPLIER)
                                  + (teachersAssistantInfectionProbability * constants.TEACHER_TA_MULTIPLIER)
                                  + contaminationInfectionProbability)
-        self.teacher.chanceInfected = ClassPeriod.computeNewChance(teacherChanceInfected, self.teacher.chanceInfected)
+        self.teacher.chanceInfected = computeNewChance(teacherChanceInfected, self.teacher.chanceInfected)
 
         taChanceInfected = (studentInfectionProbability
                             + (teacherInfectionProbability * constants.TEACHER_STUDENT_MULTIPLIER)
                             + (teachersAssistantInfectionProbability * constants.TEACHER_TA_MULTIPLIER)
                             + contaminationInfectionProbability)
 
-        self.ta.chanceInfected = ClassPeriod.computeNewChance(taChanceInfected, self.ta.chanceInfected)
+        self.ta.chanceInfected = computeNewChance(taChanceInfected, self.ta.chanceInfected)
 
         # cleaning removes contamination
         # Return totalExpectedInfections for the next period to use
