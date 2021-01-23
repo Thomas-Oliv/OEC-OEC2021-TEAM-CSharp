@@ -35,6 +35,8 @@ class Directory:
         classToTeacherMap = {
             teacher.classTeaching: teacher for teacher in teachers
         }
+        # generates period dict with dict of classes for each period
+        # maps from period to classes, in the case of the lunch period it maps by grade level
         for student in students:
             for period in periodDict.keys():
                 if period == 'Lunch':
@@ -59,6 +61,11 @@ class Directory:
         self.periodDict = periodDict
 
     def reducePeriod(self, periodNumber):
+        """
+        Calls the reduce method for each ClassPeriod/Lunch/Extracurricular object for a given period
+        :param periodNumber: the period for which to run calculations on, also accepts lunch/extra
+        :return: None
+        """
         if periodNumber == 'Extra':
             ExtraCurricular(self.students).reduce()
             return

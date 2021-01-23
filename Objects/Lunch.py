@@ -12,6 +12,10 @@ class Lunch:
         self.students = students
 
     def reduce(self):
+        """
+        Reduces the lunch object calculating new chance of infection for each student
+        :return: None
+        """
         studentsExpectedToInfect = 0
 
         lunchSize = len(self.students)
