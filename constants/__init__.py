@@ -6,3 +6,8 @@ TA_STUDENT_MULTIPLIER = 1.1
 
 # teachers expected to interact with tas closely
 TEACHER_TA_MULTIPLIER = 1.5
+
+# given pre-existing health condition multiplier
+HEALTH_CONDITION_MULTIPLIER = 1.7
+
+
