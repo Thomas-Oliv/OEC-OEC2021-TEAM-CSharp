@@ -96,7 +96,10 @@ def main():
     directory.reducePeriod('Lunch')
     directory.reducePeriod(3)
     directory.reducePeriod(4)
-    print('Epic')
+
+    rangeOfResults = [student.chanceOfDisease for student in students]
+    print(min(rangeOfResults))
+    print(max(rangeOfResults))
 
 if __name__ == "__main__":
     main()

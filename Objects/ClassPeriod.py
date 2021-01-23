@@ -45,7 +45,6 @@ class ClassPeriod:
 
         classSize = len(self.students) + 2
 
-
         studentInfectionProbability = studentsExpectedToInfect / classSize
         teacherInfectionProbability = teacherExpectedToInfect / classSize
         teachersAssistantInfectionProbability = teacherAssistantExpectedToInfect / classSize
@@ -58,8 +57,9 @@ class ClassPeriod:
             chanceInfected = (studentInfectionProbability
                                 + (teacherInfectionProbability * constants.TEACHER_STUDENT_MULTIPLIER)
                                 + (teachersAssistantInfectionProbability * constants.TA_STUDENT_MULTIPLIER)
-                                + contaminationInfectionProbability) \
-                             * student.infectivity * 0.5
+                                + contaminationInfectionProbability
+                                - student.chanceOfDisease / classSize) \
+                             * student.infectivity
             student.chanceOfDisease = computeNewChance(chanceInfected, student.chanceOfDisease)
 
         teacherChanceInfected = (studentInfectionProbability * constants.TEACHER_STUDENT_MULTIPLIER

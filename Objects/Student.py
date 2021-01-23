@@ -17,7 +17,7 @@ class Student:
         self.grade = grade
         self.first = firstname
         self.last = lastname
-        self.infectivity = 1.5**(grade + 5 - 14)
+        self.infectivity = 1.5**(grade + 5 - 14)*.25
         if healthProblems:
             self.infectivity *= constants.HEALTH_CONDITION_MULTIPLIER
         self.classes = classes
