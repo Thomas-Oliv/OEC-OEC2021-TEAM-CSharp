@@ -100,22 +100,7 @@ def main():
     directory.reducePeriod('Lunch')
     directory.reducePeriod(3)
     directory.reducePeriod(4)
-
-    rangeOfResults = [student.chanceOfDisease for student in students]
-
     directory.reducePeriod('Extra')
-    print(min(rangeOfResults))
-    print(max(rangeOfResults))
-    print(mean([student.chanceOfDisease for student in students]))
-
-    print('TEACHERS')
-    print(min([teacher.chanceInfected for teacher in teachers]))
-    print(max([teacher.chanceInfected for teacher in teachers]))
-    print(mean([teacher.chanceInfected for teacher in teachers]))
-    print('TAS')
-    print(min([ta.chanceInfected for ta in tas]))
-    print(max([ta.chanceInfected for ta in tas]))
-    print(mean([ta.chanceInfected for ta in tas]))
 
 if __name__ == "__main__":
     main()
