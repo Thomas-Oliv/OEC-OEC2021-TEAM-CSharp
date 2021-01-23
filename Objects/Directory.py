@@ -37,7 +37,7 @@ class Directory:
         for student in students:
             for period in periodDict.keys():
                 if period == 'Lunch':
-                    if periodDict[period][student.grade] is None:
+                    if student.grade not in periodDict[period]:
                         periodDict[period][student.grade] = Lunch([student])
                     else:
                         periodDict[period][student.grade].students.append(student)
@@ -59,11 +59,11 @@ class Directory:
 
     def reducePeriod(self, periodNumber):
         currentPeriod = self.periodDict[periodNumber]
-        if currentPeriod == 'Lunch':
-            for grade in currentPeriod.values():
+        if periodNumber == 'Lunch':
+            for grade in currentPeriod.keys():
                 currentPeriod[grade].reduce()
         else:
-            for className in currentPeriod.values():
+            for className in currentPeriod.keys():
                 infectionNumber = currentPeriod[className].reducePeriod()
                 if currentPeriod == 1 or currentPeriod == 3:
                     nextPeriodClass = self.periodDict[currentPeriod + 1][className]

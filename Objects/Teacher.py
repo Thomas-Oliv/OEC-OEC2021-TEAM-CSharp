@@ -10,3 +10,4 @@ class Teacher:
         self.last = lastname
         self.id = id
         self.classTeaching = classTeaching
+        self.chanceInfected = 0

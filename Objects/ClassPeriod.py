@@ -41,7 +41,7 @@ class ClassPeriod:
             studentsExpectedToInfect += student.chanceOfDisease * 3
 
         teacherExpectedToInfect += self.teacher.chanceInfected * 3
-        teacherAssistantExpectedToInfect += self.ta.chanceInfected * 3
+        teacherAssistantExpectedToInfect += self.ta.chanceInfected * 3 if self.ta is not None else 0
 
         classSize = len(self.students) + 2
 
@@ -59,7 +59,7 @@ class ClassPeriod:
                                 + (teacherInfectionProbability * constants.TEACHER_STUDENT_MULTIPLIER)
                                 + (teachersAssistantInfectionProbability * constants.TA_STUDENT_MULTIPLIER)
                                 + contaminationInfectionProbability) \
-                             * student.infectivity
+                             * student.infectivity * 0.5
             student.chanceOfDisease = computeNewChance(chanceInfected, student.chanceOfDisease)
 
         teacherChanceInfected = (studentInfectionProbability * constants.TEACHER_STUDENT_MULTIPLIER
@@ -70,7 +70,8 @@ class ClassPeriod:
         taChanceInfected = (studentInfectionProbability * constants.TA_STUDENT_MULTIPLIER
                             + (teacherInfectionProbability * constants.TEACHER_STUDENT_MULTIPLIER)
                             + contaminationInfectionProbability)
-        self.ta.chanceInfected = computeNewChance(taChanceInfected, self.ta.chanceInfected)
+        if self.ta is not None:
+            self.ta.chanceInfected = computeNewChance(taChanceInfected, self.ta.chanceInfected)
 
         # cleaning removes contamination
         # Return totalExpectedInfections for the next period to use

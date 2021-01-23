@@ -4,6 +4,8 @@ from openpyxl import Workbook, load_workbook
 from Objects.Student import Student
 from Objects.Teacher import Teacher
 from Objects.TeachingAssistant import TeachingAssistant
+from Objects.Directory import Directory
+
 
 def main():
     # Get project directly
@@ -87,15 +89,14 @@ def main():
                     ta.chanceInfected = 1
                     break
 
-
-
-
     wb.close()
+    directory = Directory(teachers, students, tas)
+    directory.reducePeriod(1)
+    directory.reducePeriod(2)
+    directory.reducePeriod('Lunch')
+    directory.reducePeriod(3)
+    directory.reducePeriod(4)
+    print('Epic')
 
 if __name__ == "__main__":
-    try:
-        main()
-    except Exception as ex:
-        print(ex)
-    finally:
-        sys.exit(0)
+    main()

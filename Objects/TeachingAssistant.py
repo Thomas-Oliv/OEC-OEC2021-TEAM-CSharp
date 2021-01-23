@@ -11,4 +11,4 @@ class TeachingAssistant:
         self.first = first
         self.last = last
         self.classes = classes
-        chanceInfected = 0
+        self.chanceInfected = 0
