@@ -59,3 +59,7 @@ class ClassPeriod:
         self.ta.chanceInfected = ClassPeriod.computeNewChance(taChanceInfected, self.ta.chanceInfected)
 
         # TODO figure out how to compute new contamination
+
+        # cleaning removes contamination
+        if self.period == 2:
+            self.contaminationMultiplier = 0

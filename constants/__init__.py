@@ -1,3 +1,5 @@
+from Objects.Extracurricular import Extracurricular
+
 # students not expected to interact with teachers much closely
 TEACHER_STUDENT_MULTIPLIER = 0.8
 
@@ -5,7 +7,20 @@ TEACHER_STUDENT_MULTIPLIER = 0.8
 TA_STUDENT_MULTIPLIER = 1.0
 
 # teachers expected to interact with tas closely
-TEACHER_TA_MULTIPLIER = 2.0
+TEACHER_TA_MULTIPLIER = 1.5
+
+EXTRACURRICULARS = {
+    'Board game club': [],
+    'Football': [],
+    'Soccer': [],
+    'Video Game Club': [],
+    'Band': [],
+    'Computer Science Club': [],
+    'Choir': [],
+    'Basketball': [],
+    'Badminton': [],
+    'Baseball': []
+}
 
 # given pre-existing health condition multiplier
 HEALTH_CONDITION_MULTIPLIER = 1.7

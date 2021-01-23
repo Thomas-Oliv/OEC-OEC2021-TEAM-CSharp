@@ -6,6 +6,6 @@ class Extracurricular:
     students: List[Student]
     name: str
 
-    def __init__(self, name, students):
+    def __init__(self, name):
         self.name = name,
-        self.students = students
+        self.students = []
