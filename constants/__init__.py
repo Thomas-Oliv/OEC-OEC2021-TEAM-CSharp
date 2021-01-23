@@ -1,13 +1,14 @@
 
 # students not expected to interact with teachers much closely
-TEACHER_STUDENT_MULTIPLIER = 0.8
+TEACHER_STUDENT_MULTIPLIER = 0.9
 
 # student ta interaction minimal?
-TA_STUDENT_MULTIPLIER = 1.0
+TA_STUDENT_MULTIPLIER = 1.1
 
 # teachers expected to interact with tas closely
 TEACHER_TA_MULTIPLIER = 1.5
 
+# Dictionary to store extracuriculars
 EXTRACURRICULARS = {
     'Board game club': [],
     'Football': [],
