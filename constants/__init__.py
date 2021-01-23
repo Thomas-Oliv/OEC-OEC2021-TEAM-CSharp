@@ -24,3 +24,5 @@ EXTRACURRICULARS = {
 
 # given pre-existing health condition multiplier
 HEALTH_CONDITION_MULTIPLIER = 1.7
+
+CONTAMINATION_FACTOR = 0.1
