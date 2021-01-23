@@ -29,6 +29,12 @@ class ClassPeriod:
         return min(1 - ((1 - originalChance) * (1 - newChance)), 1)
 
     def reducePeriod(self) -> float:
+        """
+        Calculates the new infection chance for each student, teacher, and TA in this class period\n
+        Determines this probability by adding up expected values for number of students each person in the class
+        is expected to infect based off an r0 value
+        :return: the contamination value for the next class period
+        """
         studentsExpectedToInfect = 0
         teacherExpectedToInfect = 0
         teacherAssistantExpectedToInfect = 0
@@ -47,7 +53,6 @@ class ClassPeriod:
         teachersAssistantInfectionProbability = teacherAssistantExpectedToInfect / classSize
         contaminationInfectionProbability = self.expectedInfectionsFromContamination / classSize
         for student in self.students:
-            # TODO figure out from contamination value
             chanceInfected = (studentInfectionProbability
                                 + (teacherInfectionProbability * constants.TEACHER_STUDENT_MULTIPLIER)
                                 + (teachersAssistantInfectionProbability * constants.TA_STUDENT_MULTIPLIER)
@@ -67,7 +72,6 @@ class ClassPeriod:
                             + contaminationInfectionProbability)
 
         self.ta.chanceInfected = ClassPeriod.computeNewChance(taChanceInfected, self.ta.chanceInfected)
-
 
         # cleaning removes contamination
         # Return totalExpectedInfections for the next period to use
