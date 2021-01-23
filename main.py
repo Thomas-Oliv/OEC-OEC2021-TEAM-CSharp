@@ -107,7 +107,7 @@ def main():
     print([f'{student.first} {student.last}' for student in students if student.chanceOfDisease == 1])
     print(mean([student.chanceOfDisease for student in students]))
 
-    extra_calc(students)
+    directory.reducePeriod('Extra')
     print(min(rangeOfResults))
     print(max(rangeOfResults))
     print(len([f'{student.first} {student.last}' for student in students if student.chanceOfDisease == 1]))

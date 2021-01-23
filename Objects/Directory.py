@@ -5,6 +5,7 @@ from Objects.TeachingAssistant import TeachingAssistant
 
 from Objects.ClassPeriod import ClassPeriod
 from Objects.Lunch import Lunch
+from Objects.ExtraCurricular import ExtraCurricular
 
 
 class Directory:
@@ -58,6 +59,9 @@ class Directory:
         self.periodDict = periodDict
 
     def reducePeriod(self, periodNumber):
+        if periodNumber == 'Extra':
+            ExtraCurricular(self.students).reduce()
+            return
         currentPeriod = self.periodDict[periodNumber]
         if periodNumber == 'Lunch':
             for grade in currentPeriod.keys():
