@@ -32,6 +32,9 @@ Contains data models for various parts of our application.
 ## constants
 ```__init__.py``` contains various constants used to calculate infection rate
 
+## Main
+```main.py``` run the program
+
 
 
 # How to run
