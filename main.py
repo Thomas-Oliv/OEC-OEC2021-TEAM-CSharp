@@ -23,7 +23,7 @@ def main():
             return
         elif not file:
             break
-        elif path.exists(file) and file.find('.xlsx') != -1:
+        elif path.exists(file) and file.find('.xlsx') != -1 and file.find('\\') != -1:
             directory = file
             break
         else:
