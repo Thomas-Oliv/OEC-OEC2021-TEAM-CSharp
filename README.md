@@ -31,7 +31,7 @@ Contains data models for various parts of our application.
 
 ## constants
 ```__init__.py``` contains various constants used to calculate infection rate
-
+''
 ## Main
 ```main.py``` run the program
 
@@ -45,4 +45,9 @@ source venv/bin/activate //activate virtual environment
 pip install -r requirements.txt //install dependencies
 python3 main.py //run code
 
+1. When running the application you will be prompted for a file. This should be the full path of the file. Optionally you can leave it blank to use the default file includedd with the repo.
+
+2. You can then specify a person's name or type 'f' to export to excel. The location of this file will be in the same directory as the source file. Its name should be in the format of Results{INTEGER}.xlsx where {INTEGER} is a random integer.
+
+3. at any point you can type 'e' to exit.
 ```
