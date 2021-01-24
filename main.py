@@ -101,7 +101,33 @@ def main():
     directory.reducePeriod(3)
     directory.reducePeriod(4)
     directory.reducePeriod('Extra')
-    pass
+
+    while True:
+        name = input('Type a name or e to exit: ')
+        person = None
+        if name == 'e':
+            break
+        for student in students:
+            if f'{student.first} {student.last}' == name:
+                person = student
+                print(f'{name} has a chance of infection of {person.chanceOfDisease}')
+                break
+
+        for teacher in teachers:
+            if f'{teacher.first} {teacher.last}' == name:
+                person = teacher
+                print(f'{name} has a chance of infection of {person.chanceInfected}')
+                break
+
+        for ta in tas:
+            if f'{ta.first} {ta.last}' == name:
+                person = ta
+                print(f'{name} has a chance of infection of {person.chanceInfected}')
+                break
+
+        if not person:
+            print(f'Sorry {name} was not found')
+
 
 if __name__ == "__main__":
     main()
