@@ -1,7 +1,9 @@
 
 import os
+import random
 from statistics import mean
-
+import os.path
+from os import path
 from openpyxl import Workbook, load_workbook
 from Objects.Student import Student
 from Objects.Teacher import Teacher
@@ -13,13 +15,26 @@ def main():
     # Get project directly
     PROJECT_ROOT = os.path.abspath(os.path.dirname(__file__))
     # Build directory
-    directory = os.path.join(PROJECT_ROOT, 'OEC2021_-_School_Record_Book_.xlsx')
+    filedir = os.path.join(PROJECT_ROOT, 'OEC2021_-_School_Record_Book_.xlsx')
+
+    while True:
+        file = input('Enter a file (with directory) to import. Leave blank to use default or \'e\' to exit: ')
+        if file == 'e':
+            return
+        elif not file:
+            break
+        elif path.exists(file) and file.find('.xlsx') != -1:
+            directory = file
+            break
+        else:
+            print("File does not exist!")
+
     # Empty lists to store students, teachers, and teacher's assistants
     students = list()
     teachers = list()
     tas = list()
     # Get workbook from directory
-    wb = load_workbook(read_only=True, filename=directory)
+    wb = load_workbook(read_only=True, filename=filedir)
     # Get the student info sheet from the workbook
     student_info = wb[wb.sheetnames[0]]
     # Iterate through each row in the student workbook
@@ -103,30 +118,76 @@ def main():
     directory.reducePeriod('Extra')
 
     while True:
-        name = input('Type a name or e to exit: ')
+        name = input('Type a name or \'e\' to exit. Type \'f\' to output results to excel: ')
         person = None
         if name == 'e':
             break
-        for student in students:
-            if f'{student.first} {student.last}' == name:
-                person = student
-                print(f'{name} has a chance of infection of {person.chanceOfDisease}')
-                break
+        elif name == 'f':
+            newfile = Workbook()
+            ws1 = newfile.create_sheet('Students',0)
+            ws1['A1'] = 'Student Number'
+            ws1['B1'] = 'Last Name'
+            ws1['C1'] = 'First Name'
+            ws1['D1'] = 'Infectivity'
+            stud_count = 2
+            for student in students:
+                ws1[f'A{stud_count}'] = student.id
+                ws1[f'B{stud_count}'] = student.last
+                ws1[f'C{stud_count}'] = student.first
+                ws1[f'D{stud_count}'] = student.chanceOfDisease
+                stud_count += 1
 
-        for teacher in teachers:
-            if f'{teacher.first} {teacher.last}' == name:
-                person = teacher
-                print(f'{name} has a chance of infection of {person.chanceInfected}')
-                break
+            ws2 = newfile.create_sheet('Teachers',1)
+            ws2['A1'] = 'Teacher Number'
+            ws2['B1'] = 'Last Name'
+            ws2['C1'] = 'First Name'
+            ws2['D1'] = 'Infectivity'
 
-        for ta in tas:
-            if f'{ta.first} {ta.last}' == name:
-                person = ta
-                print(f'{name} has a chance of infection of {person.chanceInfected}')
-                break
+            teach_count = 2
+            for teacher in teachers:
+                ws2[f'A{teach_count}'] = teacher.id
+                ws2[f'B{teach_count}'] = teacher.last
+                ws2[f'C{teach_count}'] = teacher.first
+                ws2[f'D{teach_count}'] = teacher.chanceInfected
+                teach_count += 1
 
-        if not person:
-            print(f'Sorry {name} was not found')
+            assist_count = 2
+            ws3 = newfile.create_sheet('Teaching Assistants',2)
+            ws3['A1'] = 'Last Name'
+            ws3['B1'] = 'First Name'
+            ws3['C1'] = 'Infectivity'
+
+            for ta in tas:
+                ws3[f'A{assist_count}'] = ta.last
+                ws3[f'B{assist_count}'] = ta.first
+                ws3[f'C{assist_count}'] = ta.chanceInfected
+                assist_count += 1
+
+            basedir = filedir[0:filedir.rindex('\\')]
+            filename = f'Result{random.randint(0,100000)}.xlsx'
+            newfile.save(os.path.join(basedir, filename))
+
+        else:
+            for student in students:
+                if f'{student.first} {student.last}' == name:
+                    person = student
+                    print(f'{name} has a chance of infection of {person.chanceOfDisease}')
+                    break
+
+            for teacher in teachers:
+                if f'{teacher.first} {teacher.last}' == name:
+                    person = teacher
+                    print(f'{name} has a chance of infection of {person.chanceInfected}')
+                    break
+
+            for ta in tas:
+                if f'{ta.first} {ta.last}' == name:
+                    person = ta
+                    print(f'{name} has a chance of infection of {person.chanceInfected}')
+                    break
+
+            if not person:
+                print(f'Sorry {name} was not found')
 
 
 if __name__ == "__main__":
