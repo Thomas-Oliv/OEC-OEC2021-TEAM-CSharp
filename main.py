@@ -1,6 +1,5 @@
 
 import os
-from statistics import mean
 
 from openpyxl import Workbook, load_workbook
 from Objects.Student import Student
